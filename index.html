@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #083c4e;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("starfall-night-sky-mountains-aesthetic-gif-cover-desktop-wallpaper.gif");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .music-player {
+            background-color: rgba(193, 242, 245, 0.5);
+            border-radius: 10px;
+            padding: 50px;
+            margin-top: 30rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: black;
+        }
+
+        .music-player h2 {
+            margin-bottom: 10px;
+        }
+
+        .music-player .song-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .music-player .song-info .song-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .music-player .song-info .artist {
+            font-size: 1em;
+            color: #888;
+        }
+
+        .music-player .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .music-player .controls button {
+            background-color: #383838;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .music-player .controls button:hover {
+            background-color: #484848;
+        }
+
+        .music-player .progress-bar {
+            width: 300px;
+            height: 5px;
+            background-color: #484848;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-player .progress-bar .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #f8fbf8;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.3s ease;
+            color: black;
+        }
+
+        .music-player .progress-bar .progress-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #070707;
+            border-radius: 50%;
+            position: absolute;
+            top: -2.5px;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .music-player .volume-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .music-player .volume-control .volume-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .music-player .volume-control .volume-slider {
+            width: 100px;
+            height: 5px;
+            background-color: #484848;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-player .volume-control .volume-slider .volume {
+            width: 100%;
+            height: 100%;
+            background-color: #f6faf7;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .music-player .volume-control .volume-slider .volume-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #0b0b0b;
+            border-radius: 50%;
+            position: absolute;
+            top: -2.5px;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .music-player {
+            margin-top: 60px;
+        }
+
+        #white {
+            font-size: 3.7rem;
+            padding: 3rem;
+            color: orangered;
+            color: rgb(250, 249, 249);
+            background: linear-gradient(greeN, blue);
+            border-radius: 20px;
+            height: 150px;
+            margin-top: 1rem;
+        }
+
+        .fas {
+            color: white;
+        }
+
+        .controls {
+            color: black;
+        }
+
+        .previous {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="music-player">
+        <h2 style="margin-top: rem; font-size: 3rem; color: white;">Feel the Music</h2>
+        <div class="song-info">
+            <div>
+                <p class="artist" style="color: white; font-weight: 700; foNt-size:1.7rem">Arijit Singh</p>
+            </div>
+            <i class="fa-solid fa-headphones" id="white"></i>
+        </div>
+        <div class="controls">
+            <button id="previous">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button id="play">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="pause">
+                <i class="fas fa-pause"></i>
+            </button>
+            <button id="next">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+        <br>
+        <div class="progress-bar" style="cursor: pointer;">
+            <div class="progress"></div>
+            <div class="progress-indicator"></div>
+        </div><br>
+        <div class="volume-control">
+            <i class="fas fa-volume-up volume-icon"></i>
+            <div class="volume-slider" style="cursor: pointer;">
+                <div class="volume"></div>
+                <div class="volume-indicator"></div>
+            </div>
+        </div><br>
+        <p>Powered by</p>
+        <p>NILESH THAKUR</p>
+    </div>
+
+    <script>
+        // Get the necessary elements
+        const songTitle = document.querySelector('.song-title');
+        const artist = document.querySelector('.artist');
+        const playButton = document.getElementById('play');
+        const pauseButton = document.getElementById('pause');
+        const previousButton = document.getElementById('previous');
+        const nextButton = document.getElementById('next');
+        const progressBar = document.querySelector('.progress-bar');
+        const progress = document.querySelector('.progress');
+        const progressIndicator = document.querySelector('.progress-indicator');
+        const volumeSlider = document.querySelector('.volume-slider');
+        const volume = document.querySelector('.volume');
+        const volumeIndicator = document.querySelector('.volume-indicator');
+
+        // Audio setup
+        const audio = new Audio('satranga.mp3'); // Replace with your audio file
+
+        // Song list (replace with your actual song data)
+        const songList = [
+            { title: 'Satranga', artist: 'Arijit Singh', src: 'satranga.mp3' },
+            { title: 'Born to Shine', artist: 'Diljit Dosanjh', src: 'born to shine.mp3' },
+            { title: 'Ve Kamleya', artist: 'Arijit Singh', src: 've kamleya.mp3' },
+        ];
+
+        let currentSongIndex = 0;
+
+        // Function to update the progress bar
+        function updateProgressBar() {
+            const percentage = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = percentage + '%';
+            progressIndicator.style.left = percentage + '%';
+        }
+
+        // Function to update the volume slider
+        function updateVolumeSlider() {
+            volume.style.width = audio.volume * 100 + '%';
+            volumeIndicator.style.left = audio.volume * 100 + '%';
+        }
+
+        // Function to load and play a song
+        function loadAndPlaySong(index) {
+            currentSongIndex = index;
+            const song = songList[index];
+            audio.src = song.src;
+            updateSongInfo(song.title, song.artist);
+            audio.play();
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'inline-block';
+            setInterval(updateProgressBar, 100);
+        }
+
+        // Event listeners for controls
+        playButton.addEventListener('click', () => {
+            audio.play();
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'inline-block';
+            setInterval(updateProgressBar, 100);
+        });
+
+        pauseButton.addEventListener('click', () => {
+            audio.pause();
+            playButton.style.display = 'inline-block';
+            pauseButton.style.display = 'none';
+        });
+
+        previousButton.addEventListener('click', () => {
+            let newIndex = currentSongIndex - 1;
+            if (newIndex < 0) {
+                newIndex = songList.length - 1;
+            }
+            loadAndPlaySong(newIndex);
+            previousButton.body.innerHTML = "born to shine.jpg";
+        });
+
+        nextButton.addEventListener('click', () => {
+            let newIndex = currentSongIndex + 1;
+            if (newIndex >= songList.length) {
+                newIndex = 0;
+            }
+            loadAndPlaySong(newIndex);
+        });
+
+        // Event listeners for progress bar and volume slider
+        progressBar.addEventListener('click', (event) => {
+            const clickX = event.offsetX;
+            const percentage = (clickX / progressBar.offsetWidth) * 100;
+            audio.currentTime = (percentage / 100) * audio.duration;
+            updateProgressBar();
+        });
+
+        volumeSlider.addEventListener('click', (event) => {
+            const clickX = event.offsetX;
+            const percentage = (clickX / volumeSlider.offsetWidth) * 100;
+            audio.volume = percentage / 100;
+            updateVolumeSlider();
+        });
+
+        // Initial volume setup
+        audio.volume = 0.5;
+        updateVolumeSlider();
+
+        // Function to update the song information
+        function updateSongInfo(songTitle, artistName) {
+            songTitle.textContent = songTitle;
+            artist.textContent = artistName;
+        }
+
+        // Initial song information
+        updateSongInfo(songList[0].title, songList[0].artist);
+    </script>
+</body>
+
+</html>
